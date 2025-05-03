@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KoDuck Memecoin - Psyduck's Crypto Quest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/assets/main.jpg" alt="Pokéball">
+      KoDuck Coin
+    </div>
+    <div>
+      <a href="#home">Pokédex</a>
+      <a href="#tokenomics">Gym Badges</a>
+      <a href="#memes">Meme Cave</a>
+      <a href="#telegram">Poké Mart</a>
+      <a href="https://raidenx.io/sui/bluemove-koduck-sui-253411" target="_blank">Buy</a>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <img src="/assets/main.jpg" alt="Psyduck">
+    <h1>KoDuck Coin: Psyduck's Crypto Quest!</h1>
+    <div class="battle-box">Wild KODUCK appeared! This memecoin's got Psyduck's confusion and crypto hype! Ready to catch it?</div>
+    <div class="contract-address">
+      <p id="contract">0x6fee0f4d3e36392531550e1afd2bd879b1326959b2d4870eb7ccea9c69bc144f::koduck::KODUCK</p>
+      <button onclick="copyContract()">Copy</button>
+    </div>
+    <a href="https://raidenx.io/sui/bluemove-koduck-sui-253411" target="_blank">Throw Your Pokéball!</a>
+  </section>
+
+  <section id="tokenomics" class="section">
+    <h2>Gym Badges (Tokenomics)</h2>
+    <div class="battle-box">Trainer! Check the Pokédex for KODUCK's stats!</div>
+    <div class="tokenomics-grid">
+      <div class="tokenomics-card">
+        <h3>Community</h3>
+        <p>90% - Team has no control</p>
+      </div>
+      <div class="tokenomics-card">
+        <h3>Team (Hold)</h3>
+        <p>7.5% - Not for sale</p>
+      </div>
+      <div class="tokenomics-card">
+        <h3>Team (Ops)</h3>
+        <p>2.5% - For marketing & project costs</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="memes" class="section">
+    <h2>Meme Cave</h2>
+    <div class="battle-box">Psyduck's memes are coming soon! Get ready for epic lulz!</div>
+    <div class="meme-grid">
+      <div class="meme-card">
+        <img src="/assets/meme1.jpg" alt="Placeholder Meme 1">
+        <p>Koduck Meme #1</p>
+      </div>
+      <div class="meme-card">
+        <img src="/assets/meme2.png" alt="Placeholder Meme 2">
+        <p>Koduck Meme #2</p>
+      </div>
+      <div class="meme-card">
+        <img src="/assets/meme3.png" alt="Placeholder Meme 3">
+        <p>Koduck Meme #3</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="telegram" class="section">
+    <h2>Poké Mart (Telegram)</h2>
+    <div class="battle-box">Psyduck wants to team up! Join the Poké Mart to trade with Trainers!</div>
+    <p>Link up with Psyduck's squad in the Poké Mart! Battle plans and KODUCK hype await!</p>
+    <div class="telegram-button">
+      <a href="https://t.me/+v19NyscXdOUwNDZl" target="_blank">Enter Poké Mart</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 KoDuck Coin. Gotta Catch 'Em All!</p>
+  </footer>
+
+  <img src="https://img.icons8.com/color/96/000000/psyduck.png" alt="Psyduck Follower" class="psyduck-follower">
+
+  <script>
+    // Smooth scrolling for navbar links
+    document.querySelectorAll('.navbar a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(30, 144, 255, 0.95)';
+      } else {
+        navbar.style.background = 'rgba(30, 144, 255, 0.85)';
+      }
+    });
+
+    // Psyduck follower movement
+    const psyduckFollower = document.querySelector('.psyduck-follower');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      psyduckFollower.style.transform = `translateY(${scrollY * 0.5}px)`;
+    });
+
+    // Copy contract address to clipboard
+    function copyContract() {
+      const contractText = document.getElementById('contract').innerText;
+      navigator.clipboard.writeText(contractText).then(() => {
+        alert('Contract address copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>
