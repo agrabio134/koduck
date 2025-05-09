@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -288,72 +287,119 @@ p {
 
 /* NFT Teaser Section */
 .nft-teaser-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nft-teaser-img {
+  width: 150px;
+  height: auto;
+  border: 4px solid #ffcb05; /* Pokémon Yellow */
+  border-radius: 10px;
+  animation: bounce 2s infinite;
+}
+
+.nft-teaser-content p {
+  font-size: 0.7rem;
+  max-width: 500px;
+  text-align: center;
+}
+
+.nft-teaser-button a {
+  background: #dc2626; /* Pokémon Red */
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 0.7rem;
+  border: 2px solid #fff;
+  transition: background 0.3s;
+}
+
+.nft-teaser-button a:hover {
+  background: #b91c1c;
+}
+
+/* NFT Grid Styles */
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nft-card {
+  background: #fff;
+  border: 4px solid #ffcb05;
+  border-radius: 10px;
+  padding: 0.5rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.nft-card a {
+  text-decoration: none;
+}
+
+.nft-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.nft-card p {
+  font-size: 0.6rem;
+  color: #000;
+  text-shadow: none;
+  margin-top: 0.5rem;
+}
+
+/* Mobile responsiveness for NFT teaser */
+@media (max-width: 768px) {
   .nft-teaser-img {
-    width: 150px;
-    height: auto;
-    border: 4px solid #ffcb05; /* Pokémon Yellow */
-    border-radius: 10px;
-    animation: bounce 2s infinite;
+    width: 120px;
   }
-  
+
   .nft-teaser-content p {
-    font-size: 0.7rem;
-    max-width: 500px;
-    text-align: center;
+    font-size: 0.6rem;
+    max-width: 90%;
   }
-  
+
   .nft-teaser-button a {
-    background: #dc2626; /* Pokémon Red */
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 0.7rem;
-    border: 2px solid #fff;
-    transition: background 0.3s;
+    font-size: 0.6rem;
+    padding: 0.4rem 0.8rem;
   }
-  
-  .nft-teaser-button a:hover {
-    background: #b91c1c;
+
+  .nft-grid {
+    grid-template-columns: 1fr;
   }
-  
-  /* Mobile responsiveness for NFT teaser */
-  @media (max-width: 768px) {
-    .nft-teaser-img {
-      width: 120px;
-    }
-  
-    .nft-teaser-content p {
-      font-size: 0.6rem;
-      max-width: 90%;
-    }
-  
-    .nft-teaser-button a {
-      font-size: 0.6rem;
-      padding: 0.4rem 0.8rem;
-    }
+
+  .nft-card {
+    max-width: 200px;
+    margin: 0 auto;
   }
-  
-  @media (max-width: 480px) {
-    .nft-teaser-img {
-      width: 100px;
-    }
-  
-    .nft-teaser-content p {
-      font-size: 0.55rem;
-    }
-  
-    .nft-teaser-button a {
-      font-size: 0.55rem;
-    }
+}
+
+@media (max-width: 480px) {
+  .nft-teaser-img {
+    width: 100px;
   }
+
+  .nft-teaser-content p {
+    font-size: 0.55rem;
+  }
+
+  .nft-teaser-button a {
+    font-size: 0.55rem;
+  }
+
+  .nft-card p {
+    font-size: 0.55rem;
+  }
+}
 
 /* Psyduck follower sprite */
 .psyduck-follower {
