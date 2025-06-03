@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="KoDuck Memecoin: Join Psyduck's wild crypto quest! Catch $KODUCK, explore NFTs, and dive into the Pokéverse.">
+  <meta name="keywords" content="KoDuck, memecoin, Psyduck, cryptocurrency, NFTs, Sui blockchain, Pokéverse">
+  <title>KoDuck Memecoin - Psyduck's Crypto Quest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1a1a2e;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    button,
+    .navbar-links a {
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .animate-bounce {
+      animation: bounce 3s infinite ease-in-out;
+    }
+
+    .animate-fade-in {
+      animation: fade-in 1s ease-in;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .psyduck-follower {
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .playlist {
+      position: fixed;
+      top: 20%;
+      right: 1rem;
+      width: 250px;
+      max-height: 60vh;
+      overflow-y: auto;
+      background: #16213e;
+      padding: 1rem;
+      border-radius: 12px;
+      z-index: 40;
+      transition: transform 0.3s ease;
+    }
+
+    .playlist.hidden {
+      transform: translateX(100%);
+    }
+
+    .playlist-toggle {
+      position: fixed;
+      top: 15%;
+      right: 1rem;
+      background: #0f3460;
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 41;
+    }
+
+    .playlist-toggle:hover {
+      background: #1e4d8a;
+    }
+
+    .playlist-item {
+      cursor: pointer;
+      padding: 0.5rem;
+      background: #0f3460;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .playlist-item:hover {
+      background: #1e4d8a;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #16213e;
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .modal-video {
+      max-width: 100%;
+      max-height: 65vh;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-button {
+      background: #ff0000;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-button:hover {
+      background: #cc0000;
+    }
+
+    .nav-button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: #ffcb05;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-right: 2rem;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: 2rem;
+    }
+
+    .timeline-content {
+      background: #0f3460;
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 45%;
+      box-shadow: 0 0 10px rgba(255, 203, 5, 0.3);
+    }
+
+    .timeline-marker {
+      width: 20px;
+      height: 20px;
+      background: #ff0000;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .pokeball-deco {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #fff 50%, #ff0000 50%);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    .bg-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/koduck_art_1.jpg') center/cover fixed;
+      background-attachment: fixed;
+    }
+
+    .bg-tokenomics {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/koduck_art_5.jpg') center/cover fixed;
+    }
+
+    .bg-roadmap {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/koduck_art_6.jpg') center/cover fixed;
+    }
+
+    .bg-how-to-buy {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/koduck_art_7.jpg') center/cover fixed;
+    }
+
+    .bg-costs {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/koduck_art_8.jpg') center/cover fixed;
+    }
+
+    .bg-dark {
+      background: linear-gradient(to bottom, #16213e, #0f3460);
+    }
+
+    .fallback-img {
+      display: none;
+      font-size: 0.875rem;
+      color: #a0aec0;
+    }
+
+    img[onerror]+.fallback-img,
+    video[onerror]+.fallback-img {
+      display: block;
+    }
+
+    .navbar-links {
+      transition: all 0.3s ease;
+    }
+
+    .glow-button {
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+    }
+
+    @media (max-width: 640px) {
+      .playlist {
+        width: 200px;
+        top: 15%;
+      }
+
+      .playlist-toggle {
+        top: 10%;
+        display: block;
+      }
+
+      .navbar-links {
+        display: none;
+      }
+
+      .navbar-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #16213e;
+        padding: 1.5rem;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .text-4xl {
+        font-size: 1.75rem;
+      }
+
+      .text-3xl {
+        font-size: 1.5rem;
+      }
+
+      .text-lg {
+        font-size: 1rem;
+      }
+
+      .modal-content {
+        padding: 1rem;
+        max-width: 95vw;
+      }
+
+      .modal-video {
+        max-height: 50vh;
+      }
+
+      .nav-button {
+        width: 35px;
+        height: 35px;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item {
+        flex-direction: column !important;
+        align-items: flex-start;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin: 1rem 0 0 40px;
+        width: calc(100% - 60px);
+      }
+
+      .timeline-marker {
+        left: 20px;
+      }
+
+      .playlist.hidden {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="text-white overflow-x-hidden">
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-gradient-to-r from-indigo-900 to-purple-900 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="/assets/main.jpg" alt="KoDuck Coin Pokéball Logo" class="w-8 h-8 animate-bounce"
+          onerror="this.style.display='none';">
+        <span class="text-lg font-['Press_Start_2P'] text-yellow-400">KoDuck</span>
+      </div>
+      <button id="nav-toggle" class="sm:hidden text-yellow-400 focus:outline-none" aria-label="Toggle navigation menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <div class="navbar-links sm:flex items-center space-x-6 text-sm">
+        <a href="#home" class="hover:text-yellow-400">Home</a>
+        <a href="#tokenomics" class="hover:text-yellow-400">Tokenomics</a>
+        <a href="#nft-teaser" class="hover:text-yellow-400">Soon?</a>
+        <a href="#telegram" class="hover:text-yellow-400">Community</a>
+        <a href="https://raidenx.io/sui/bluemove-koduck-sui-253411" target="_blank"
+          class="bg-yellow-400 text-black px-4 py-2 rounded-full hover:bg-yellow-300 glow-button">Buy Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home"
+    class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-16 bg-hero relative">
+    <div class="pokeball-deco" style="top: 10%; left: 10%;"></div>
+    <div class="pokeball-deco" style="bottom: 15%; right: 15%;"></div>
+    <img src="/assets/main.jpg" alt="Psyduck KoDuck Hero Image" class="w-40 h-40 sm:w-48 sm:h-48 mb-4 animate-bounce"
+      onerror="this.style.display='none';">
+    <h1 class="text-3xl sm:text-4xl font-['Press_Start_2P'] mb-2 text-yellow-400 animate-fade-in">KoDuck Coin</h1>
+    <p class="text-lg sm:text-xl max-w-md mx-auto mb-4 text-indigo-200 animate-fade-in">Psyduck’s Wild Crypto Quest!</p>
+    <p class="text-base sm:text-lg max-w-md mx-auto mb-6 animate-fade-in">Catch $KODUCK before it rockets to the moon!
+    </p>
+    <div class="flex flex-col sm:flex-row items-center gap-3 mb-6 animate-fade-in">
+      <p id="contract-text" class="text-xs bg-gray-800 p-3 rounded-lg break-all max-w-xs sm:max-w-md">
+        0x6fee0f4d3e36392531550e1afd2bd879b1326959b2d4870eb7ccea9c69bc144f::koduck::KODUCK</p>
+      <button onclick="copyContract()"
+        class="bg-yellow-400 text-black px-4 py-2 rounded-full hover:bg-yellow-300 glow-button font-['Press_Start_2P']">Copy</button>
+    </div>
+    <a href="https://raidenx.io/sui/bluemove-koduck-sui-253411" target="_blank"
+      class="bg-red-600 text-white px-8 py-4 rounded-full hover:bg-red-500 hover-scale glow-button text-lg font-['Press_Start_2P'] animate-fade-in">Throw
+      Pokéball!</a>
+  </section>
+
+  <!-- Tokenomics Section -->
+  <section id="tokenomics" class="py-16 bg-tokenomics relative">
+    <div class="pokeball-deco" style="top: 20%; right: 5%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">Tokenomics</h2>
+      <p class="text-lg max-w-md mx-auto mb-8 animate-fade-in">Check out $KODUCK’s stats in the Pokédex!</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl hover-scale animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Community</h3>
+          <p>90% - Trainers rule!</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl hover-scale animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Team (Hold)</h3>
+          <p>7.5% - Locked tight!</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl hover-scale animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Team (Ops)</h3>
+          <p>2.5% - Fueling the hype!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meme Cave Section -->
+  <section id="memes" class="py-16 bg-dark relative">
+    <div class="pokeball-deco" style="bottom: 10%; left: 10%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">Meme Cave</h2>
+      <p class="text-lg max-w-md mx-auto mb-8 animate-fade-in">Psyduck’s meme stash is fire! Laugh, share, HODL!</p>
+      <div class="gallery-grid max-w-4xl mx-auto">
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_3.jpg" alt="Psyduck in a Pokéverse adventure"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Meme #1</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clips Playlist -->
+  <button id="playlist-toggle" class="playlist-toggle sm:block hidden"
+    aria-label="Toggle clips playlist visibility">▶</button>
+  <div id="playlist" class="playlist sm:block hidden">
+    <h3 class="text-sm font-['Press_Start_2P'] mb-4 text-yellow-400">KoDuck Clips</h3>
+    <div class="playlist-item" data-video="/assets/koduck_clip_1.mp4" data-poster="/assets/koduck_art_1.jpg">Clip #1
+    </div>
+    <div class="playlist-item" data-video="/assets/koduck_clip_2.mp4" data-poster="/assets/koduck_art_2.jpg">Clip #2
+    </div>
+    <div class="playlist-item" data-video="/assets/koduck_clip_3.mp4" data-poster="/assets/koduck_art_3.jpg">Clip #3
+    </div>
+    <div class="playlist-item" data-video="/assets/koduck_clip_4.mp4" data-poster="/assets/koduck_art_4.jpg">Clip #4
+    </div>
+  </div>
+  <div id="video-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">×</span>
+      <video id="modal-video" class="modal-video" controls autoplay muted></video>
+      <div class="nav-buttons">
+        <button id="prev-video" class="nav-button" aria-label="Previous video">←</button>
+        <button id="next-video" class="nav-button" aria-label="Next video">→</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roadmap Section -->
+  <section id="roadmap" class="py-16 bg-roadmap relative">
+    <div class="pokeball-deco" style="top: 15%; left: 5%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">Roadmap</h2>
+      <div class="timeline">
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Marketing</h3>
+            <p>Epic trainer alliances!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Profile Updates</h3>
+            <p>Fresh Psyduck pics on Dexscreener & RaidenX!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Verification</h3>
+            <p>Official badges on Suiscan, Suivision, Slush Wallet!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Website</h3>
+            <p>Supercharged site upgrade!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Listings</h3>
+            <p>CoinGecko, CoinMarketCap, CEX domination!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Content Launch</h3>
+            <p>KoDuck mini-movie by Japanese studios!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Product Dev</h3>
+            <p>NFTs with perks, mini-games drop!</p>
+          </div>
+        </div>
+        <div class="timeline-item animate-fade-in">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="text-lg font-bold mb-2 text-yellow-400">Japan Expansion</h3>
+            <p>KoDuck merch hits Japanese markets!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Buy Section -->
+  <section id="how-to-buy" class="py-16 bg-how-to-buy relative">
+    <div class="pokeball-deco" style="bottom: 20%; right: 10%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">How to Catch $KODUCK
+      </h2>
+      <div class="max-w-2xl mx-auto space-y-6">
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Step 1: Grab SUI</h3>
+          <p>Sign up on Binance, KuCoin, or Coinbase. Buy SUI with USD, EUR, or your currency.</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Step 2: Wallet Up</h3>
+          <p>Get a Sui wallet like Slush Wallet or Phantom for Web3 action.</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Step 3: Move SUI</h3>
+          <p>Send your $SUI from the exchange to your wallet address.</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Step 4: Catch KODUCK</h3>
+          <p>Connect wallet to Aftermath or BlueMove DEX, paste KODUCK’s contract, and snag those tokens!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Costs Section -->
+  <section id="costs" class="py-16 bg-costs relative">
+    <div class="pokeball-deco" style="top: 10%; left: 15%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">$KODUCK Costs</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Content Production</h3>
+          <p>$150 per 15s clip (~21,000 yen). 4 clips in the bag!</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Partnerships</h3>
+          <p>Suipiens: $300<br>Killa Club: $400</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Listings</h3>
+          <p>DexScreener: $300<br>CoinMun: $150</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Token Burn</h3>
+          <p>15% burned = $4,200 (current MC)<br>3% more with whale power!</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Projections</h3>
+          <p>100k MC = $10k burned<br>1M MC = $100k burned</p>
+        </div>
+        <div class="p-6 bg-indigo-900 bg-opacity-80 rounded-xl animate-fade-in">
+          <h3 class="text-lg font-bold mb-2 text-yellow-400">Volume Bots</h3>
+          <p>~$500 investment</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NFT Teaser Section -->
+  <section id="nft-teaser" class="py-16 bg-dark relative">
+    <div class="pokeball-deco" style="top: 25%; right: 10%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">NFT Safari</h2>
+      <p class="text-lg max-w-md mx-auto mb-8 animate-fade-in">Catch Psyduck’s exclusive KoDuck NFT collection!</p>
+      <img src="/assets/koduck_art_4.jpg" alt="Psyduck NFT teaser artwork"
+        class="w-full max-w-md mx-auto h-64 object-cover rounded-lg" loading="lazy"
+        onerror="this.style.display='none';">
+      <div class="gallery-grid max-w-4xl mx-auto">
+        <h2 class="mt-2">SOON</h2>
+
+        <!-- <a href="https://www.tradeport.xyz/sui/collection/0xfbbbcad8ffb4ee31b9fb2d337572c31338bf994b0e4e6f26af300b2d24c8b76f?tab=mint&bottomTab=trades&mintTokenId=40fc7a1d-77a6-46f5-b861-7f8c3a041b0e" target="_blank" class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/nft1.jpg" alt="KoDuck NFT with Psyduck in space" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+                <p class="mt-2">NFT #1</p>
+        </a>
+        <a href="https://www.tradeport.xyz/sui/collection/0xfbbbcad8ffb4ee31-b9fb2d337572c31338bf994b0e4e6f26af300b2d24c8b76f?tab=mint&bottomTab=trades&mintTokenId=eff3f17f-6548-4bc7-9cc3-9a61f12a1c5d" target="_blank" class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/nft2.jpg" alt="KoDuck NFT with Psyduck as a trader" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+                <p class="mt-2">NFT #2</p>
+        </a>
+        <a href="https://www.tradeport.xyz/sui/collection/0xfbbbcad8ffb4ee31b9fb2d337572c31338-bf994b0e4e6f26af300b2d24c8b76f?tab=mint&bottomTab=trades&mintTokenId=fc57ad60-9ef2-42f5-9f00-3f15513bdec6" target="_blank" class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/nft3.jpg" alt="KoDuck NFT with Psyduck in a battle pose" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+                <p class="mt-2">NFT #3</p>
+        </a>
+        <a href="https://www.tradeport.xyz/sui/collection/0xfbbbcad8ffb4ee31b9fb2d337572c31338bf994b0e4e6f26af300b2d24c8b76f?tab=mint&bottomTab=trades&mintTokenId=f08c5b45-0d28-488c-8703-4f84266f343f" target="_blank" class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/nft4.jpg" alt="KoDuck NFT with Psyduck in a futuristic setting" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+                <p class="mt-2">NFT #4</p>
+        </a> -->
+      </div>
+      <a href="#stay-tuned" onclick="alert('Stay tuned for the KoDuck NFT drop! Join our Telegram for updates!')"
+        class="mt-6 inline-block bg-yellow-400 text-black px-6 py-3 rounded-full hover:bg-yellow-300 hover-scale glow-button font-['Press_Start_2P'] animate-fade-in">Get
+        Ready!</a>
+    </div>
+  </section>
+
+  <!-- Community (Telegram) Section -->
+  <section id="telegram" class="py-16 bg-dark relative">
+    <div class="pokeball-deco" style="bottom: 15%; left: 5%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">Community</h2>
+      <p class="text-lg max-w-md mx-auto mb-8 animate-fade-in">Join Psyduck’s squad in the Poké Mart on Telegram!</p>
+      <a href="https://t.me/+v19NyscXdOUwNDZl" target="_blank"
+        class="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-500 hover-scale glow-button font-['Press_Start_2P'] animate-fade-in">Join
+        Now</a>
+    </div>
+  </section>
+
+  <!-- Art Gallery Section -->
+  <section id="art-gallery" class="py-16 bg-dark relative">
+    <div class="pokeball-deco" style="top: 20%; right: 15%;"></div>
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl sm:text-3xl font-['Press_Start_2P'] mb-6 text-yellow-400 animate-fade-in">Art Gallery</h2>
+      <p class="text-lg max-w-md mx-auto mb-8 animate-fade-in">Explore Psyduck’s KoDuck art universe!</p>
+      <div class="gallery-grid max-w-5xl mx-auto">
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_9.jpg" alt="Psyduck in a vibrant Pokéverse scene"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #9</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_17.jpg" alt="Psyduck with a KoDuck coin crown"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #10</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_11.jpg" alt="Psyduck exploring a crypto vault"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #11</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_12.jpg" alt="Psyduck in a futuristic blockchain city"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #12</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_13.jpg" alt="Psyduck with a glowing KoDuck token"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #13</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_14.jpg" alt="Psyduck in a trading frenzy"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #14</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_15.jpg" alt="Psyduck celebrating a crypto win"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #15</p>
+        </div>
+        <div class="p-4 bg-indigo-900 rounded-xl hover-scale animate-fade-in">
+          <img src="/assets/koduck_art_16.jpg" alt="Psyduck in a Pokéverse festival"
+            class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.style.display='none';">
+          <p class="mt-2">Art #16</p>
+        </div>
+     
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-indigo-900 text-center">
+    <div class="container mx-auto px-4">
+      <p class="text-sm mb-4">© 2025 KoDuck Coin. Gotta Catch 'Em All!</p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <a href="#roadmap" class="hover:text-yellow-400">Roadmap</a>
+        <a href="#how-to-buy" class="hover:text-yellow-400">How to Buy</a>
+        <a href="#costs" class="hover:text-yellow-400">Costs</a>
+        <a href="#memes" class="hover:text-yellow-400">Meme Cave</a>
+        <a href="#art-gallery" class="hover:text-yellow-400">Art Gallery</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Psyduck Follower -->
+  <img src="/assets/koduck_art_1.jpg" alt="Psyduck KoDuck Follower"
+    class="fixed bottom-4 right-4 w-12 h-12 sm:w-14 sm:h-14 z-40 psyduck-follower" onerror="this.style.display='none';">
+  <!-- <span class="fallback-img fixed bottom-4 right-4 z-40">Image unavailable</span> -->
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = anchor.getAttribute('href').slice(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Navbar toggle
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+      document.querySelector('.navbar-links').classList.toggle('active');
+    });
+
+    // Psyduck follower movement
+    window.addEventListener('scroll', () => {
+      const follower = document.querySelector('.psyduck-follower');
+      follower.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+    });
+
+    // Copy contract address
+    function copyContract() {
+      navigator.clipboard.writeText(document.getElementById('contract-text').textContent)
+        .then(() => alert('Contract address copied!'))
+        .catch(err => console.warn('Copy failed:', err));
+    }
+
+    // Playlist toggle
+    const playlist = document.getElementById('playlist');
+    const playlistToggle = document.getElementById('playlist-toggle');
+    playlistToggle.addEventListener('click', () => {
+      playlist.classList.toggle('hidden');
+      playlistToggle.textContent = playlist.classList.contains('hidden') ? '▶' : '◀';
+    });
+
+    // Playlist modal
+    const modal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const closeModal = document.querySelector('.close-modal');
+    const playlistItems = document.querySelectorAll('.playlist-item');
+    const prevButton = document.getElementById('prev-video');
+    const nextButton = document.getElementById('next-video');
+    let currentVideoIndex = 0;
+
+    const videos = Array.from(playlistItems).map(item => ({
+      src: item.getAttribute('data-video'),
+      poster: item.getAttribute('data-poster')
+    }));
+
+    function updateVideo(index) {
+      modalVideo.src = videos[index].src;
+      modalVideo.poster = videos[index].poster;
+      currentVideoIndex = index;
+      prevButton.disabled = index === 0;
+      nextButton.disabled = index === videos.length - 1;
+      modalVideo.play().catch(() => console.warn('Video playback failed'));
+    }
+
+    playlistItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        updateVideo(index);
+        modal.classList.add('active');
+      });
+    });
+
+    prevButton.addEventListener('click', () => {
+      if (currentVideoIndex > 0) {
+        updateVideo(currentVideoIndex - 1);
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (currentVideoIndex < videos.length - 1) {
+        updateVideo(currentVideoIndex + 1);
+      }
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+      modalVideo.pause();
+      modalVideo.src = '';
+    });
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        modalVideo.pause();
+        modalVideo.src = '';
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        modalVideo.pause();
+        modalVideo.src = '';
+      }
+    });
+  </script>
+</body>
+
+</html>

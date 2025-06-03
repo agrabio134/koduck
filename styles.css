@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+body {
+  background: linear-gradient(to bottom, #0d0c1d, #1e1b3e);
+  overflow-x: hidden;
+}
+
+.navbar {
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar a {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.animate-scale-pulse {
+  animation: scalePulse 2s infinite ease-in-out;
+}
+
+@keyframes scalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  transform: translateX(0);
+  transition: transform 0.5s ease-out;
+}
+
+.hidden {
+  transform: translateX(100%);
+}
+
+.psyduck-follower {
+  transition: transform 0.5s ease;
+}
+
+button, a {
+  transition: all 0.3s ease;
+}
